@@ -8,9 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.Arrays;
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity {
 
     private Button buttonSoma;
@@ -25,61 +22,52 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        vincularComponentes();
+        calcular(buttonSoma, "+");
+        calcular(buttonSubtracao, "-");
+        calcular(buttonMultiplicacao, "*");
+        calcular(buttonDivisao, "/");
+    }
+
+    private void vincularComponentes() {
         // associa objetos java ao componente xml
-        buttonSoma = findViewById(R.id.buttonSoma);
-        buttonSubtracao = findViewById(R.id.buttonSubtracao);
-        buttonMultiplicacao = findViewById(R.id.buttonMultiplicacao);
-        buttonDivisao = findViewById(R.id.buttonDivisao);
-        editTextValor1 = findViewById(R.id.editTextValor1);
-        editTextValor2 = findViewById((R.id.editTextValor2));
+        this.buttonSoma = findViewById(R.id.buttonSoma);
+        this.buttonSubtracao = findViewById(R.id.buttonSubtracao);
+        this.buttonMultiplicacao = findViewById(R.id.buttonMultiplicacao);
+        this.buttonDivisao = findViewById(R.id.buttonDivisao);
+        this.editTextValor1 = findViewById(R.id.editTextValor1);
+        this.editTextValor2 = findViewById((R.id.editTextValor2));
+    }
 
-        // gerando evento click do botão soma
-        buttonSoma.setOnClickListener(new View.OnClickListener() {
+    private void calcular(Button button, String op){
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 double v1 = Double.parseDouble(editTextValor1.getText().toString());
                 double v2 = Double.parseDouble(editTextValor2.getText().toString());
-                double soma = v1 + v2;
-                Toast.makeText(MainActivity.this, "Soma: " + soma, Toast.LENGTH_LONG).show();
-            }
-        });
+                double result = 0;
 
-        // gerando evento click do botão subtração
-        buttonSubtracao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                double v1 = Double.parseDouble(editTextValor1.getText().toString());
-                double v2 = Double.parseDouble(editTextValor2.getText().toString());
-                double subtracao = v1 - v2;
-                Toast.makeText(MainActivity.this, "Subtração: " + subtracao, Toast.LENGTH_LONG).show();
-            }
-        });
-
-        // gerando evento click do botão multiplicação
-        buttonMultiplicacao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                double v1 = Double.parseDouble(editTextValor1.getText().toString());
-                double v2 = Double.parseDouble(editTextValor2.getText().toString());
-                double multiplicacao = v1 * v2;
-                Toast.makeText(MainActivity.this, "Multiplicação: " + multiplicacao, Toast.LENGTH_LONG).show();
-            }
-        });
-
-        // gerando evento click do botão divisão
-        buttonDivisao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                double v1 = Double.parseDouble(editTextValor1.getText().toString());
-                double v2 = Double.parseDouble(editTextValor2.getText().toString());
-
-                try {
-                    double divisao = v1 / v2;
-                    Toast.makeText(MainActivity.this, "Divisão: " + divisao, Toast.LENGTH_LONG).show();
-                } catch (ArithmeticException exception) {
-                    Toast.makeText(MainActivity.this, "Erro: Impossível dividir por zero!", Toast.LENGTH_LONG).show();
+                switch (op){
+                    case "+":
+                        result = v1 + v2; break;
+                    case "-":
+                        result = v1 - v2; break;
+                    case "*":
+                        result = v1 * v2; break;
+                    case "/":
+                        if(v2 != 0){
+                            result = v1 / v2;
+                        } else {
+                            Toast.makeText(MainActivity.this, "Erro: Divisão por ZERO", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        break;
+                    default:
+                        throw new RuntimeException("Operação Inválida");
                 }
+                Toast.makeText(MainActivity.this, "Resultado: " + result, Toast.LENGTH_LONG).show();
             }
         });
+
     }
 }

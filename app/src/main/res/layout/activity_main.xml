@@ -32,25 +32,25 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="+"
+        android:text="Soma"
         android:id="@+id/buttonSoma"
     />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="-"
+        android:text="Subtração"
         android:id="@+id/buttonSubtracao"
     />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="*"
+        android:text="Multiplicação"
         android:id="@+id/buttonMultiplicacao"
     />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="/"
+        android:text="Divisão"
         android:id="@+id/buttonDivisao"
     />
 </LinearLayout>
