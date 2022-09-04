@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button buttonSoma;
@@ -43,8 +45,19 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                double v1 = Double.parseDouble(editTextValor1.getText().toString());
-                double v2 = Double.parseDouble(editTextValor2.getText().toString());
+                String editText1 = editTextValor1.getText().toString();
+                String editText2 = editTextValor2.getText().toString();
+                System.out.println(editText1 + " ---------- " + editText2);
+                if(editText1.isEmpty() || editText2.isEmpty()){
+                    Toast.makeText(MainActivity.this, "Erro: digite os dois valores", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(editText1.equals(".") || editText2.equals(".")){
+                    Toast.makeText(MainActivity.this, "Erro: digite valores válidos", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                double v1 = Double.parseDouble(editText1);
+                double v2 = Double.parseDouble(editText2);
                 double result = 0;
 
                 switch (op){
@@ -58,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                         if(v2 != 0){
                             result = v1 / v2;
                         } else {
-                            Toast.makeText(MainActivity.this, "Erro: Divisão por ZERO", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Erro: divisão por ZERO", Toast.LENGTH_SHORT).show();
                             return;
                         }
                         break;
